@@ -16,16 +16,28 @@
 
 ## 📖 Table of Contents
 
-- [System Architecture](#-system-architecture)
 - [Key Features](#-key-features)
+- [System Architecture](#-system-architecture)
 - [Tech Stack](#-tech-stack)
-- [Database Schema](#-database-schema)
 - [Folder Structure](#-folder-structure)
+- [Database Schema](#-database-schema)
 - [API Documentation](#-api-documentation)
 - [Environment Configuration](#-environment-configuration)
 - [Installation & Local Setup](#-installation--local-setup)
 - [Deployment Guidelines](#-deployment-guidelines)
 - [License](#-license)
+
+---
+
+## 🚀 Key Features
+
+- **Live Dashboard Statistics**: Displays dynamically updating counts of *Total*, *Pending*, *In Progress*, and *Completed* tasks to give a high-level view of productivity.
+- **Unified Workspace View**: Toggle between a modern **Grid Card View** (optimized for mobile/tablets) and a detailed **Table List View** (optimized for desktop power users).
+- **Real-time Search & Filters**: Search task titles or descriptions instantly and filter by status pills (`Pending`, `In Progress`, `Completed`).
+- **Robust Form Validation**: Two-layer validation with client-side form validation via `react-hook-form` and server-side safety checks via `Joi` schemas.
+- **Responsive Dark Mode**: Smooth class-based dark mode transitions persisted inside `localStorage`.
+- **State & API Architecture**: Centralized data management using a custom React hook (`useTasks`) and isolated API communication layers.
+- **SaaS Design Polish**: Custom skeletons, empty states, toaster notifications (`react-hot-toast`), and responsive confirmation modals for destructive actions.
 
 ---
 
@@ -41,18 +53,6 @@ graph TD
     C -->|Yes| D[Supabase Service Layer]
     D -->|Supabase SDK| E[Supabase PostgreSQL]
 ```
-
----
-
-## 🚀 Key Features
-
-- **Live Dashboard Statistics**: Displays dynamically updating counts of *Total*, *Pending*, *In Progress*, and *Completed* tasks to give a high-level view of productivity.
-- **Unified Workspace View**: Toggle between a modern **Grid Card View** (optimized for mobile/tablets) and a detailed **Table List View** (optimized for desktop power users).
-- **Real-time Search & Filters**: Search task titles or descriptions instantly and filter by status pills (`Pending`, `In Progress`, `Completed`).
-- **Robust Form Validation**: Two-layer validation with client-side form validation via `react-hook-form` and server-side safety checks via `Joi` schemas.
-- **Responsive Dark Mode**: Smooth class-based dark mode transitions persisted inside `localStorage`.
-- **State & API Architecture**: Centralized data management using a custom React hook (`useTasks`) and isolated API communication layers.
-- **SaaS Design Polish**: Custom skeletons, empty states, toaster notifications (`react-hot-toast`), and responsive confirmation modals for destructive actions.
 
 ---
 
@@ -75,26 +75,6 @@ graph TD
 
 ### Database
 - **Supabase PostgreSQL**: Managed relational database with UUID generation support, index optimizations, and validation check constraints.
-
----
-
-## 🗄️ Database Schema
-
-The backend connects to a PostgreSQL database hosted on Supabase. Below is the structure defined in [schema.sql](./database/schema.sql):
-
-```sql
-CREATE TABLE tasks (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    title VARCHAR(255) NOT NULL,
-    description TEXT NOT NULL,
-    status VARCHAR(50) DEFAULT 'Pending' CHECK (status IN ('Pending', 'In Progress', 'Completed')),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
-);
-
--- Optimization Indexes
-CREATE INDEX IF NOT EXISTS idx_tasks_status ON tasks(status);
-CREATE INDEX IF NOT EXISTS idx_tasks_created_at ON tasks(created_at DESC);
-```
 
 ---
 
@@ -157,6 +137,26 @@ tasks/
 ├── .env.example
 ├── .gitignore
 └── README.md
+```
+
+---
+
+## 🗄️ Database Schema
+
+The backend connects to a PostgreSQL database hosted on Supabase. Below is the structure defined in [schema.sql](./database/schema.sql):
+
+```sql
+CREATE TABLE tasks (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    status VARCHAR(50) DEFAULT 'Pending' CHECK (status IN ('Pending', 'In Progress', 'Completed')),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
+);
+
+-- Optimization Indexes
+CREATE INDEX IF NOT EXISTS idx_tasks_status ON tasks(status);
+CREATE INDEX IF NOT EXISTS idx_tasks_created_at ON tasks(created_at DESC);
 ```
 
 ---
@@ -297,7 +297,7 @@ To run Taskly, you need to configure the following environment variables. Templa
 
 ## 🌎 Deployment Guidelines
 
-### Backend (Render / Heroku)
+### Backend Deployment (e.g. Render / Heroku)
 1. Push your code repository to GitHub.
 2. Create a new **Web Service** on **Render** and link your repository.
 3. Configure the settings:
@@ -310,14 +310,16 @@ To run Taskly, you need to configure the following environment variables. Templa
    - `SUPABASE_ANON_KEY`
    - `NODE_ENV=production`
 
-### Frontend (Vercel)
+### Frontend Deployment (Vercel)
 1. Log in to **Vercel** and select **Add New Project**.
 2. Link your GitHub repository.
-3. Choose the framework preset as **Vite**.
-4. Set the **Root Directory** as `frontend`.
-5. Under Environment Variables, add:
-   - `VITE_API_URL` pointing to your deployed backend URL on Render (e.g. `https://task-backend.onrender.com`).
-6. Click **Deploy**. Vercel will build and host your site.
+3. Configure the project settings:
+   - **Framework Preset**: `Vite`
+   - **Root Directory**: `frontend`
+4. Under **Environment Variables**, add:
+   - `VITE_API_URL` pointing to your deployed backend API (e.g., `https://your-backend.onrender.com`).
+5. **Client-Side SPA Routing**: We have preconfigured a [vercel.json](./frontend/vercel.json) file inside the `frontend` folder. Vercel reads this automatically to rewrite all dynamic page requests back to `index.html` so that React Router DOM can handle them without throwing a 404 error.
+6. Click **Deploy**. Vercel will build, optimize, and host your site.
 
 ---
 
