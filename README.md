@@ -1,12 +1,14 @@
 # ⚡ Taskly
 
-[![React](https://img.shields.io/badge/React-18.2-61DAFB?style=flat-square&logo=react&logoColor=61DAFB)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/Vite-5.1-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Node.js](https://img.shields.io/badge/Node.js-v18+-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
-[![Express.js](https://img.shields.io/badge/Express.js-4.19-000000?style=flat-square&logo=express&logoColor=white)](https://expressjs.com/)
-[![Supabase](https://img.shields.io/badge/Supabase-Database-3ECF8E?style=flat-square&logo=supabase&logoColor=white)](https://supabase.com/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-316192?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+<p align="left">
+  <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" /></a>
+  <a href="https://vitejs.dev/"><img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" /></a>
+  <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" /></a>
+  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" /></a>
+  <a href="https://expressjs.com/"><img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js" /></a>
+  <a href="https://supabase.com/"><img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" /></a>
+  <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" /></a>
+</p>
 
 **Taskly** is a production-ready, full-stack Task Management System featuring a highly interactive, responsive SaaS-style web interface and a robust Node.js/Express backend service powered by Supabase PostgreSQL.
 
@@ -78,7 +80,7 @@ graph TD
 
 ## 🗄️ Database Schema
 
-The backend connects to a PostgreSQL database hosted on Supabase. Below is the structure defined in [schema.sql](file:///c:/Users/dream/Downloads/tasks/database/schema.sql):
+The backend connects to a PostgreSQL database hosted on Supabase. Below is the structure defined in [schema.sql](./database/schema.sql):
 
 ```sql
 CREATE TABLE tasks (
@@ -240,7 +242,7 @@ To run Taskly, you need to configure the following environment variables. Templa
 ### 1. Database Setup
 1. Log in to your **Supabase Dashboard** and create a new project.
 2. Navigate to the **SQL Editor** tab from the left sidebar.
-3. Paste the contents of [schema.sql](file:///c:/Users/dream/Downloads/tasks/database/schema.sql) into the query editor and click **Run**.
+3. Paste the contents of [schema.sql](./database/schema.sql) into the query editor and click **Run**.
 4. Make a note of your **Project URL** and **API Anon Key** (available in Settings -> API).
 
 ### 2. Backend Installation
