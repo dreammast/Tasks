@@ -10,7 +10,9 @@
   <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" /></a>
 </p>
 
-**Taskly** is a production-ready, full-stack Task Management System featuring a highly interactive, responsive SaaS-style web interface and a robust Node.js/Express backend service powered by Supabase PostgreSQL.
+**Taskly** is a production-ready, full-stack Task Management System featuring a
+highly interactive, responsive SaaS-style web interface and a robust
+Node.js/Express backend service powered by Supabase PostgreSQL.
 
 ---
 
@@ -31,13 +33,24 @@
 
 ## 🚀 Key Features
 
-- **Live Dashboard Statistics**: Displays dynamically updating counts of *Total*, *Pending*, *In Progress*, and *Completed* tasks to give a high-level view of productivity.
-- **Unified Workspace View**: Toggle between a modern **Grid Card View** (optimized for mobile/tablets) and a detailed **Table List View** (optimized for desktop power users).
-- **Real-time Search & Filters**: Search task titles or descriptions instantly and filter by status pills (`Pending`, `In Progress`, `Completed`).
-- **Robust Form Validation**: Two-layer validation with client-side form validation via `react-hook-form` and server-side safety checks via `Joi` schemas.
-- **Responsive Dark Mode**: Smooth class-based dark mode transitions persisted inside `localStorage`.
-- **State & API Architecture**: Centralized data management using a custom React hook (`useTasks`) and isolated API communication layers.
-- **SaaS Design Polish**: Custom skeletons, empty states, toaster notifications (`react-hot-toast`), and responsive confirmation modals for destructive actions.
+- **Live Dashboard Statistics**: Displays dynamically updating counts of
+  *Total*, *Pending*, *In Progress*, and *Completed* tasks to give a
+  high-level view of productivity.
+- **Unified Workspace View**: Toggle between a modern **Grid Card View**
+  (optimized for mobile/tablets) and a detailed **Table List View**
+  (optimized for desktop power users).
+- **Real-time Search & Filters**: Search task titles or descriptions instantly
+  and filter by status pills (`Pending`, `In Progress`, `Completed`).
+- **Robust Form Validation**: Two-layer validation with client-side form
+  validation via `react-hook-form` and server-side safety checks via `Joi`
+  schemas.
+- **Responsive Dark Mode**: Smooth class-based dark mode transitions persisted
+  inside `localStorage`.
+- **State & API Architecture**: Centralized data management using a custom
+  React hook (`useTasks`) and isolated API communication layers.
+- **SaaS Design Polish**: Custom skeletons, empty states, toaster notifications
+  (`react-hot-toast`), and responsive confirmation modals for destructive
+  actions.
 
 ---
 
@@ -68,13 +81,15 @@ graph TD
 - **React Hot Toast**: Responsive and beautiful notification popups.
 
 ### Backend
-- **Node.js & Express.js**: Server runtime environment and minimalist API routing framework.
+- **Node.js & Express.js**: Server runtime environment and minimalist API routing
+  framework.
 - **Joi**: Schema-based validation for request body payloads.
 - **Supabase JS SDK**: Communication layer with PostgreSQL database.
-- **CORS & Dotenv**: standard security and environment variable helpers.
+- **CORS & Dotenv**: Standard security and environment variable helpers.
 
 ### Database
-- **Supabase PostgreSQL**: Managed relational database with UUID generation support, index optimizations, and validation check constraints.
+- **Supabase PostgreSQL**: Managed relational database with UUID generation
+  support, index optimizations, and validation check constraints.
 
 ---
 
@@ -143,7 +158,8 @@ tasks/
 
 ## 🗄️ Database Schema
 
-The backend connects to a PostgreSQL database hosted on Supabase. Below is the structure defined in [schema.sql](./database/schema.sql):
+The backend connects to a PostgreSQL database hosted on Supabase. Below is the
+structure defined in [schema.sql](./database/schema.sql):
 
 ```sql
 CREATE TABLE tasks (
@@ -175,7 +191,8 @@ All routes are nested under the base endpoint `/api/tasks`.
 ### Validation Rules (Express Joi Middleware)
 - **`title`**: String, Trimmed, Max 255 chars, **Required**
 - **`description`**: String, Trimmed, Min 20 chars, **Required**
-- **`status`**: String, must be one of `['Pending', 'In Progress', 'Completed']`, Defaults to `Pending`
+- **`status`**: String, must be one of `['Pending', 'In Progress', 'Completed']`,
+  Defaults to `Pending`
 
 <details>
 <summary><b>🔍 Click to view API Response Examples</b></summary>
@@ -217,7 +234,8 @@ All routes are nested under the base endpoint `/api/tasks`.
 
 ## ⚙️ Environment Configuration
 
-To run Taskly, you need to configure the following environment variables. Templates are provided in the repository configuration.
+To run Taskly, you need to configure the following environment variables.
+Templates are provided in the repository configuration.
 
 ### Backend Config (`backend/.env`)
 | Variable | Description | Example / Default |
@@ -242,8 +260,10 @@ To run Taskly, you need to configure the following environment variables. Templa
 ### 1. Database Setup
 1. Log in to your **Supabase Dashboard** and create a new project.
 2. Navigate to the **SQL Editor** tab from the left sidebar.
-3. Paste the contents of [schema.sql](./database/schema.sql) into the query editor and click **Run**.
-4. Make a note of your **Project URL** and **API Anon Key** (available in Settings -> API).
+3. Paste the contents of [schema.sql](./database/schema.sql) into the query
+   editor and click **Run**.
+4. Make a note of your **Project URL** and **API Anon Key** (available in
+   Settings -> API).
 
 ### 2. Backend Installation
 1. Navigate to the backend directory:
@@ -297,24 +317,35 @@ To run Taskly, you need to configure the following environment variables. Templa
 
 ## 🌎 Deployment Guidelines
 
-Both the frontend and the backend are fully configured for a unified deployment to **Vercel** as a single project (monorepo structure) using the root-level [vercel.json](./vercel.json) file.
+Both the frontend and the backend are fully configured for a unified deployment
+to **Vercel** as a single project (monorepo structure) using the root-level
+[vercel.json](./vercel.json) file.
 
 ### Single-Project Deployment (Vercel)
 1. Go to your **Vercel Dashboard** and click **Add New Project**.
 2. Link your GitHub repository.
 3. Configure the following project settings:
-   - **Root Directory**: Leave it as the default repository root (`/` or `.`). Do **NOT** change it to `frontend` or `backend`.
-   - **Framework Preset**: Choose **Other** (Vercel will automatically read the root-level `vercel.json` file to manage builds and routing).
+   - **Root Directory**: Leave it as the default repository root (`/` or `.`).
+     Do **NOT** change it to `frontend` or `backend`.
+   - **Framework Preset**: Choose **Other** (Vercel will automatically read the
+     root-level `vercel.json` file to manage builds and routing).
 4. Under **Environment Variables**, add your database credentials:
    - `SUPABASE_URL` = *(your Supabase project URL)*
    - `SUPABASE_ANON_KEY` = *(your Supabase public anon key)*
-   *(Note: You do **not** need to set `VITE_API_URL` for production, as the frontend will automatically use relative requests to the same domain to reach the backend).*
-5. Click **Deploy**. Vercel will build your React frontend, compile your Node.js backend as a serverless function, and host both under the same domain.
+   *(Note: You do **not** need to set `VITE_API_URL` for production, as the
+   frontend will automatically use relative requests to the same domain to reach
+   the backend).*
+5. Click **Deploy**. Vercel will build your React frontend, compile your
+   Node.js backend as a serverless function, and host both under the same
+   domain.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.#   T a s k s  
- #   T a s k s  
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file
+for details.
+
+
+#   T a s k s  
  
