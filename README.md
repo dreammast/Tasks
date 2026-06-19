@@ -297,29 +297,30 @@ To run Taskly, you need to configure the following environment variables. Templa
 
 ## 🌎 Deployment Guidelines
 
-### Backend Deployment (e.g. Render / Heroku)
-1. Push your code repository to GitHub.
-2. Create a new **Web Service** on **Render** and link your repository.
-3. Configure the settings:
-   - **Root Directory**: `backend`
-   - **Build Command**: `npm install`
-   - **Start Command**: `node server.js`
-4. Set up the Environment Variables:
-   - `PORT=10000` (Render handles this dynamically)
-   - `SUPABASE_URL`
-   - `SUPABASE_ANON_KEY`
-   - `NODE_ENV=production`
+Both the frontend and the backend are fully configured for easy, seamless deployment to **Vercel** as two separate services.
 
-### Frontend Deployment (Vercel)
-1. Log in to **Vercel** and select **Add New Project**.
+### 1. Backend Deployment (Vercel)
+1. Go to your Vercel Dashboard and click **Add New Project**.
 2. Link your GitHub repository.
 3. Configure the project settings:
-   - **Framework Preset**: `Vite`
+   - **Framework Preset**: Choose `Other` or `None`.
+   - **Root Directory**: `backend`
+4. Under **Environment Variables**, add:
+   - `SUPABASE_URL` = *(your Supabase project URL)*
+   - `SUPABASE_ANON_KEY` = *(your Supabase public anon key)*
+5. **Serverless Execution**: We have preconfigured a [vercel.json](./backend/vercel.json) file in the `backend` folder. Vercel reads this automatically to run the Express API as a serverless function.
+6. Click **Deploy**. Vercel will host your backend and provide a deployment URL (e.g., `https://task-backend.vercel.app`).
+
+### 2. Frontend Deployment (Vercel)
+1. Go to your Vercel Dashboard and click **Add New Project**.
+2. Link the same GitHub repository.
+3. Configure the project settings:
+   - **Framework Preset**: Choose `Vite`.
    - **Root Directory**: `frontend`
 4. Under **Environment Variables**, add:
-   - `VITE_API_URL` pointing to your deployed backend API (e.g., `https://your-backend.onrender.com`).
-5. **Client-Side SPA Routing**: We have preconfigured a [vercel.json](./frontend/vercel.json) file inside the `frontend` folder. Vercel reads this automatically to rewrite all dynamic page requests back to `index.html` so that React Router DOM can handle them without throwing a 404 error.
-6. Click **Deploy**. Vercel will build, optimize, and host your site.
+   - `VITE_API_URL` = *(the URL of your newly deployed Vercel backend, e.g., `https://task-backend.vercel.app`)*
+5. **Client-Side SPA Routing**: We have preconfigured a [vercel.json](./frontend/vercel.json) file in the `frontend` folder. Vercel reads this automatically to rewrite all dynamic page routing requests to `index.html` so React Router can process them without throwing 404 errors.
+6. Click **Deploy**. Vercel will build, optimize, and host your client application.
 
 ---
 
